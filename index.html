@@ -7,12 +7,12 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <style>
-      /* [수정됨] 화면 비율 유지 및 중앙 정렬 스타일 */
+      /* 화면 비율 유지 및 중앙 정렬 스타일 */
       body { 
         margin: 0; 
         padding: 0; 
         overflow: hidden; 
-        background-color: #000; /* 남는 여백 검은색 처리 */
+        background-color: #000; /* 남는 여백 검은색 */
         width: 100%; 
         height: 100vh; 
       }
@@ -20,16 +20,16 @@
       #unity-container { 
         width: 100%; 
         height: 100%; 
-        display: flex;             /* 플렉스 박스 사용 */
-        justify-content: center;   /* 가로 중앙 정렬 */
-        align-items: center;       /* 세로 중앙 정렬 */
+        display: flex;             
+        justify-content: center;   
+        align-items: center;       
         position: absolute;
         top: 0;
         left: 0;
       }
       
       #unity-canvas { 
-        /* 핵심: 비율 고정 (16:9) */
+        /* 16:9 비율 고정 */
         aspect-ratio: 16 / 9;
         
         /* 화면을 넘지 않도록 설정 */
@@ -38,8 +38,12 @@
         max-width: 100%;
         max-height: 100%;
         
-        /* 그림자 효과 (선택사항) */
         box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+      }
+
+      /* 하단 로고나 버튼이 들어가는 Footer 자체를 숨김 처리 */
+      #unity-footer {
+        display: none !important;
       }
     </style>
   </head>
@@ -53,12 +57,8 @@
         </div>
       </div>
       <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-logo-title-footer"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Game</div>
+      
       </div>
-    </div>
     <script>
       var canvas = document.querySelector("#unity-canvas");
 
@@ -103,8 +103,6 @@
         document.querySelector("#unity-container").className = "unity-mobile";
         canvas.className = "unity-mobile";
       } else {
-        // [수정됨] 데스크탑일 때 JS가 강제로 크기를 정하지 않게 비워둡니다.
-        // 위쪽 <style> 태그의 CSS가 비율을 알아서 맞춰줍니다.
         canvas.style.width = "";
         canvas.style.height = "";
       }
@@ -118,9 +116,8 @@
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 document.querySelector("#unity-loading-bar").style.display = "none";
-                document.querySelector("#unity-fullscreen-button").onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
+                
+                // 전체화면 버튼 기능을 제거했으므로 관련 코드 삭제됨
 
               }).catch((message) => {
                 alert(message);
